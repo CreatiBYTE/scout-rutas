@@ -10,7 +10,7 @@
       <h3>{{ ruta.nombre }}</h3>
       <p class="texto-muted">{{ ruta['fechaInicio'] }} {{ ruta['horaInicio'] }} → {{ ruta['fechaFin'] }} {{
         ruta['horaFin'] }}</p>
-      <p *ngIf="ruta['crearEquipos']" class="texto-muted">Equipos: {{ ruta['equipos'].join(', ') }}</p>
+      <p *ngIf="ruta['crearEquipos']" class="texto-muted">Equipos: {{ ruta['equipos']?.join(', ') }}</p>
       <p class="texto-muted">Distancia estimada: {{ ruta['distancia'] }} km</p>
     </div>
 
@@ -59,7 +59,7 @@
   <map-marker 
     *ngFor="let punto of rutaMostrada['puntos']" 
     [position]="{ lat: punto.lat, lng: punto.lng }"
-    [label]="punto.nombre"
+    [label]="punto.nombre || ''"
   ></map-marker>
 
   <map-polyline 
