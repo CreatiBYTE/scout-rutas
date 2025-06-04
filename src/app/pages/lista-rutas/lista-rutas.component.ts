@@ -79,6 +79,14 @@ export class ListaRutasComponent implements OnInit {
     this.generarQR(ruta.id!);
   }
 
+  getRutaURL(id: string): string {
+    return `${window.location.origin}/navegar/${id}`;
+  }
+
+  cerrarOverlay(): void {
+    this.rutaMostrada = null;
+  }
+
   generarQR(id: string): void {
     const ruta = this.rutas.find(r => r.id === id);
     if (ruta) {
