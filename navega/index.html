@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <title>Navega Offline</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="manifest" href="manifest.json">
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; padding: 1rem; }
+  </style>
+</head>
+<body>
+  <h1>Navega Ruta</h1>
+  <div id="contenido">Cargando...</div>
+  <script>
+    const cont = document.getElementById('contenido');
+    const id = new URLSearchParams(location.search).get('id');
+    const data = localStorage.getItem('ruta-' + id);
+    const instalada = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    if (!instalada) {
+      cont.textContent = 'Agrega esta página a tu inicio para navegar sin conexión.';
+    } else if (data) {
+      const ruta = JSON.parse(data);
+      cont.textContent = 'Ruta: ' + ruta.nombre;
+    } else {
+      cont.textContent = 'No hay datos de la ruta';
+    }
+  </script>
+</body>
+</html>
