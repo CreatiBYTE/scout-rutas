@@ -18,7 +18,7 @@
       <button mat-icon-button (click)="verRuta(ruta)">
         <mat-icon>visibility</mat-icon>
       </button>
-      <button mat-icon-button (click)="generarQR(ruta.id)" matTooltip="Compartir">
+      <button mat-icon-button (click)="generarQR(ruta.id!)" matTooltip="Compartir">
         <mat-icon>qr_code</mat-icon>
       </button>
     </div>
@@ -29,7 +29,7 @@
     </div>
 
     <div *ngIf="ruta['mostrarQR']" class="qr-contenedor">
-      <qrcode [qrdata]="getRutaURL(ruta.id)" [width]="160" [errorCorrectionLevel]="'M'"></qrcode>
+      <qrcode [qrdata]="getRutaURL(ruta.id!)" [width]="160" [errorCorrectionLevel]="'M'"></qrcode>
       <p class="texto-muted">Escanéame para navegar en celular</p>
     </div>
   </div>

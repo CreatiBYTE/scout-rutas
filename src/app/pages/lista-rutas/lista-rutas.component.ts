@@ -5,6 +5,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { GoogleMap, GoogleMapsModule } from '@angular/google-maps';
+import { QRCodeModule } from 'angularx-qrcode';
 import QRCode from 'qrcode';
 import { RutasService } from '../../services/rutas.service';
 import { Ruta as RutaBase } from '../../models/ruta';
@@ -22,7 +23,8 @@ interface Ruta extends RutaBase {
     MatListModule,
     MatButtonModule,
     MatIconModule,
-    GoogleMapsModule
+    GoogleMapsModule,
+    QRCodeModule
   ],
   templateUrl: './lista-rutas.component.html',
   styleUrls: ['./lista-rutas.component.scss']
