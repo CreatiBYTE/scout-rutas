@@ -1,45 +1,140 @@
-.container {
+.rutas-container {
+  max-width: 900px;
+  margin: 2rem auto;
   padding: 1rem;
-  max-width: 600px;
-  margin: 0 auto;
+  font-family: 'Segoe UI', sans-serif;
 
-  h1 {
-    margin-bottom: 1.5rem;
+  h2 {
+    font-size: 1.8rem;
+    color: #4a148c;
+    margin-bottom: 1rem;
     text-align: center;
-    font-weight: 600;
-    color: #2c3e50;
   }
 
-  .ruta-item {
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
+  .mensaje-vacio {
+    text-align: center;
+    font-style: italic;
+    color: #888;
+    margin-top: 2rem;
+  }
+
+  .ruta-card {
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.5rem;
+    transition: box-shadow 0.3s ease;
 
     &:hover {
-      background-color: #f0f0f0;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
 
-    h4 {
-      font-weight: 500;
+    .ruta-header {
+      h3 {
+        margin: 0;
+        font-size: 1.4rem;
+        color: #333;
+      }
+
+      .texto-muted {
+        font-size: 0.9rem;
+        color: #777;
+        margin-top: 4px;
+      }
     }
 
-    p {
-      font-size: 0.875rem;
-      color: #666;
+    .ruta-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+
+      button {
+        background-color: #f3f3f3;
+        border-radius: 8px;
+
+        mat-icon {
+          color: #673ab7;
+        }
+
+        &:hover {
+          background-color: #e0e0e0;
+        }
+      }
+    }
+
+    .ruta-detalle {
+      margin-top: 1rem;
+      background-color: #f9f9f9;
+      padding: 0.8rem;
+      border-radius: 8px;
+      border: 1px dashed #ccc;
+    }
+
+    .qr-contenedor {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+
+      p {
+        font-size: 0.85rem;
+        color: #555;
+        text-align: center;
+      }
     }
   }
 
-  .sin-rutas {
-    text-align: center;
-    margin-top: 3rem;
+  .overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 
-    p {
-      font-size: 1rem;
-      margin-bottom: 1rem;
-      color: #555;
+  .overlay-content {
+    background: #fff;
+    border-radius: 12px;
+    padding: 1.5rem;
+    width: 90%;
+    max-width: 500px;
+    max-height: 80%;
+    overflow-y: auto;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+
+    h3 {
+      margin-top: 0;
+      color: #4a148c;
+    }
+
+    ul {
+      padding-left: 1rem;
+      li {
+        margin-bottom: 0.4rem;
+      }
     }
 
     button {
-      font-weight: 500;
+      margin-top: 1rem;
+      display: block;
+      margin-left: auto;
     }
   }
+
+  .overlay-content google-map {
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  width: 100%;
+  height: 300px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+}
+
 }

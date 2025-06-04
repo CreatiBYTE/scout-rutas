@@ -8,7 +8,8 @@
   <div class="ruta-card" *ngFor="let ruta of rutas">
     <div class="ruta-header">
       <h3>{{ ruta.nombre }}</h3>
-      <p class="texto-muted">{{ ruta['fechaInicio'] }} {{ ruta['horaInicio'] }} → {{ ruta['fechaFin'] }} {{ ruta['horaFin'] }}</p>
+      <p class="texto-muted">{{ ruta['fechaInicio'] }} {{ ruta['horaInicio'] }} → {{ ruta['fechaFin'] }} {{
+        ruta['horaFin'] }}</p>
       <p *ngIf="ruta['crearEquipos']" class="texto-muted">Equipos: {{ ruta['equipos'].join(', ') }}</p>
       <p class="texto-muted">Distancia estimada: {{ ruta['distancia'] }} km</p>
     </div>
@@ -18,8 +19,8 @@
         <mat-icon>visibility</mat-icon>
       </button>
       <button mat-icon-button (click)="generarQR(ruta.id)" matTooltip="Compartir">
-  <mat-icon>qr_code</mat-icon>
-</button>
+        <mat-icon>qr_code</mat-icon>
+      </button>
     </div>
 
     <div class="ruta-detalle" *ngIf="ruta['mostrarDetalle']">
@@ -32,4 +33,53 @@
       <p class="texto-muted">Escanéame para navegar en celular</p>
     </div>
   </div>
+
+  <!-- Overlay visual para mostrar una ruta -->
+  <div class="overlay" *ngIf="rutaMostrada" (click)="cerrarOverlay()">
+    <div class="overlay-content" (click)="$event.stopPropagation()">
+      <h3>{{ rutaMostrada.nombre }}</h3>
+      <p *ngIf="rutaMostrada.descripcion">{{ rutaMostrada.descripcion }}</p>
+
+      <!-- Mini Mapa -->
+<google-map
+  #miniMapa
+  height="300px"
+  width="100%" 
+  [center]="obtenerCentro(rutaMostrada)" 
+  [zoom]="14"
+  [options]="{
+    zoomControl: true,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false,
+    gestureHandling: 'cooperative',
+    keyboardShortcuts: false
+  }"
+>
+  <map-marker 
+    *ngFor="let punto of rutaMostrada['puntos']" 
+    [position]="{ lat: punto.lat, lng: punto.lng }"
+    [label]="punto.nombre"
+  ></map-marker>
+
+  <map-polyline 
+    [path]="rutaMostrada['puntos']" 
+    [options]="{
+      strokeColor: '#1976d2',
+      strokeOpacity: 0.8,
+      strokeWeight: 4
+    }"
+  ></map-polyline>
+</google-map>
+
+
+      <ul>
+        <li *ngFor="let punto of rutaMostrada['puntos']">
+          📍 {{ punto.nombre }} ({{ punto.lat }}, {{ punto.lng }})
+        </li>
+      </ul>
+      <button mat-raised-button color="primary" (click)="cerrarOverlay()">Cerrar</button>
+    </div>
+  </div>
+
 </div>
