@@ -16,7 +16,10 @@
     const cont = document.getElementById('contenido');
     const id = new URLSearchParams(location.search).get('id');
     const data = localStorage.getItem('ruta-' + id);
-    if (data) {
+    const instalada = window.matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+    if (!instalada) {
+      cont.textContent = 'Agrega esta página a tu inicio para navegar sin conexión.';
+    } else if (data) {
       const ruta = JSON.parse(data);
       cont.textContent = 'Ruta: ' + ruta.nombre;
     } else {

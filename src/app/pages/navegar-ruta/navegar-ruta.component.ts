@@ -28,10 +28,12 @@ export class NavegarRutaComponent implements OnDestroy {
   eventoEstado: 'no-iniciado' | 'en-curso' | 'finalizado' | null = null;
   cuentaRegresiva = '';
   navegador: 'chrome' | 'safari' | 'otro' = 'otro';
+  instalada = false;
   private timer?: ReturnType<typeof setInterval>;
 
   constructor(private route: ActivatedRoute, private rutasService: RutasService) {
     this.detectarNavegador();
+    this.instalada = this.isStandalone();
     this.route.paramMap.subscribe(params => {
       this.idRuta = params.get('id') || '';
       if (this.idRuta) {
@@ -51,7 +53,7 @@ export class NavegarRutaComponent implements OnDestroy {
             }
           }
           this.actualizarEstadoEvento();
-          if (this.isStandalone()) {
+          if (this.instalada) {
             this.guardarEnLocalStorage();
           }
         });
