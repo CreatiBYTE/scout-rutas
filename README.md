@@ -1,59 +1,75 @@
-# ScoutRutas
+# Scout Rutas 🌍🚶
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.9.
+**Scout Rutas** es una Progressive Web App (PWA) desarrollada con Angular, diseñada para crear, visualizar y navegar rutas georreferenciadas en actividades Scouts. Optimizada para funcionar sin conexión y ser utilizada fácilmente desde dispositivos móviles en el campo.
 
-## Development server
+---
 
-To start a local development server, run:
+## 🧭 Características
+
+- 🌐 Uso de Google Maps para marcar puntos de ruta
+- 🧩 SPA con Angular 17 y routing interno
+- 📲 Compatible con instalación como app móvil (PWA)
+- 📡 Funciona offline después de ser instalada
+- ✏️ Crear, guardar y editar rutas
+- 🔐 Interfaz ligera y sin necesidad de login en la versión pública
+
+---
+
+## 🚀 Demo
+
+👉 [Ver aplicación en vivo](https://creatibyte.github.io/scout-rutas/)
+
+> Sugerencia: Instálala en tu teléfono desde el navegador como app para experiencia completa sin conexión.
+
+---
+
+## 🛠️ Instalación local
 
 ```bash
+git clone https://github.com/CreatiBYTE/scout-rutas.git
+cd scout-rutas
+npm install
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+> Requiere Node.js 18+ y Angular CLI 17+.
 
-## Code scaffolding
+---
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 📦 Build y Deploy
 
 ```bash
-ng generate --help
+ng build --configuration production
+npx angular-cli-ghpages --dir=dist/scout-rutas
 ```
 
-## Building
+> El sitio se publica en el branch `gh-pages` de este repositorio.
 
-To build the project run:
+---
 
-```bash
-ng build
-```
+## 📁 Estructura
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+- `src/app/pages/crear-ruta/` — Formulario para crear nuevas rutas
+- `src/app/pages/navegar-ruta/` — Modo navegación paso a paso
+- `src/assets/` — Recursos estáticos y configuraciones
+- `src/styles.scss` — Estilos globales
 
-## Running unit tests
+---
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+## 🙌 Autor
 
-```bash
-ng test
-```
+José Esteban García Luna Cortés  
+[CreatiBYTE](https://www.creatibyte.com.mx)  
+Contacto: akela@creatibyte.com.mx
 
-## Running end-to-end tests
+---
 
-For end-to-end (e2e) testing, run:
+## 🧪 Licencia
 
-```bash
-ng e2e
-```
+MIT License — libre uso con atribución.
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
+## ✨ ¡Apóyalo!
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Si esta herramienta te ha servido, considera darle ⭐️ al repositorio o compartirla con otros scouters.

@@ -30,6 +30,11 @@
                 "glob": "**/*",
                 "input": "public",
                 "output": "/"
+              },
+              {
+                "glob": "404.html",
+                "input": "src",
+                "output": "/"
               }
             ],
             "styles": [
@@ -73,20 +78,14 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
-            "production": {
-              
-            },
-            "development": {
-              
-            }
+            "production": {},
+            "development": {}
           },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            
-          }
+          "options": {}
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
@@ -103,6 +102,11 @@
               {
                 "glob": "**/*",
                 "input": "public",
+                "output": "/"
+              },
+              {
+                "glob": "404.html",
+                "input": "src",
                 "output": "/"
               }
             ],
