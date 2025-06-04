@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, doc, setDoc, docData, Firestore } from '@angular/fire/firestore';
+import { collection, collectionData, doc, setDoc, docData, Firestore, deleteDoc } from '@angular/fire/firestore';
 import { addDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Ruta } from '../models/ruta';
@@ -36,5 +36,10 @@ export class RutasService {
     }
     const rutaRef = doc(this.firestore, `rutas/${ruta.id}`);
     return setDoc(rutaRef, ruta);
+  }
+
+  eliminarRuta(id: string): Promise<void> {
+    const rutaRef = doc(this.firestore, `rutas/${id}`);
+    return deleteDoc(rutaRef);
   }
 }
