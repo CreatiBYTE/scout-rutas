@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
@@ -9,6 +9,7 @@ import { QRCodeComponent } from 'angularx-qrcode';
 import { RutasService } from '../../services/rutas.service';
 import { Ruta as RutaBase } from '../../models/ruta';
 import QRCode from 'qrcode';
+import { Subscription } from 'rxjs';
 
 interface Ruta extends RutaBase {
   mostrarQR: boolean;
@@ -29,12 +30,13 @@ interface Ruta extends RutaBase {
   templateUrl: './lista-rutas.component.html',
   styleUrls: ['./lista-rutas.component.scss']
 })
-export class ListaRutasComponent implements OnInit {
+export class ListaRutasComponent implements OnInit, OnDestroy {
   rutas: Ruta[] = [];
   rutaMostrada: Ruta | null = null;
   rutaCompartida: Ruta | null = null;
   qrUrl: string = '';
   @ViewChild('miniMapa') miniMapa?: GoogleMap;
+  private rutasSub?: Subscription;
 
   constructor(
     private router: Router,
@@ -42,7 +44,7 @@ export class ListaRutasComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.rutasService.obtenerRutas().subscribe({
+    this.rutasSub = this.rutasService.obtenerRutas().subscribe({
       next: (rutas) => {
         this.rutas = rutas.map(r => ({ ...r, mostrarQR: false, mostrarDetalle: false }));
       },
@@ -50,6 +52,10 @@ export class ListaRutasComponent implements OnInit {
         console.error('Error al obtener rutas:', err);
       }
     });
+  }
+
+  ngOnDestroy(): void {
+    this.rutasSub?.unsubscribe();
   }
 
   navegarRuta(id: string): void {
