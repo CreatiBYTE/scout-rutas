@@ -110,6 +110,19 @@ export class ListaRutasComponent implements OnInit, OnDestroy {
     }
   }
 
+  confirmarEliminacion(id: string): void {
+    if (confirm('¿Est\u00e1 seguro de eliminar esta ruta?')) {
+      this.rutasService.eliminarRuta(id)
+        .then(() => {
+          this.rutas = this.rutas.filter(r => r.id !== id);
+          if (this.rutaMostrada?.id === id) {
+            this.rutaMostrada = null;
+          }
+        })
+        .catch(err => console.error('Error al eliminar ruta:', err));
+    }
+  }
+
   obtenerCentro(ruta: Ruta): google.maps.LatLngLiteral {
     if (!ruta || !ruta.puntos || ruta.puntos.length === 0) {
       return { lat: 0, lng: 0 };

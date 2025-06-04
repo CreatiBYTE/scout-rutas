@@ -11,7 +11,7 @@
       <p class="texto-muted">{{ ruta['fechaInicio'] }} {{ ruta['horaInicio'] }} → {{ ruta['fechaFin'] }} {{
         ruta['horaFin'] }}</p>
       <p *ngIf="ruta['crearEquipos']" class="texto-muted">Equipos: {{ ruta['equipos']?.join(', ') }}</p>
-      <p class="texto-muted">Distancia estimada: {{ ruta['distancia'] }} km</p>
+      <p class="texto-muted">Distancia estimada: {{ ruta['distanciaTotal']?.toFixed(2) }} km</p>
     </div>
 
     <div class="ruta-actions">
@@ -20,6 +20,9 @@
       </button>
       <button mat-icon-button (click)="generarQR(ruta.id!)" matTooltip="Compartir">
         <mat-icon>qr_code</mat-icon>
+      </button>
+      <button mat-icon-button color="warn" (click)="confirmarEliminacion(ruta.id!)">
+        <mat-icon>delete</mat-icon>
       </button>
     </div>
 
