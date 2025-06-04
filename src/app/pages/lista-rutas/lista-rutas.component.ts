@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { NgxQrCodeModule } from 'ngx-qrcode2';
+import { QRCodeModule } from 'angularx-qrcode';
 
 interface Ruta {
   id: string;
@@ -21,22 +21,14 @@ interface Ruta {
     MatListModule,
     MatButtonModule,
     MatIconModule,
-    NgxQrCodeModule
+    QRCodeModule
   ],
   templateUrl: './lista-rutas.component.html',
   styleUrls: ['./lista-rutas.component.scss']
 })
 export class ListaRutasComponent implements OnInit {
-generarQR(arg0: string) {
-throw new Error('Method not implemented.');
-}
-getRutaURL(arg0: string) {
-throw new Error('Method not implemented.');
-}
   rutas: Ruta[] = [];
   rutaMostrada: Ruta | null = null;
-  rutaCompartida: Ruta | null = null;
-  qrUrl: string = '';
 
   constructor(public router: Router) {}
 
@@ -75,23 +67,16 @@ throw new Error('Method not implemented.');
 
   verRuta(ruta: Ruta): void {
     this.rutaMostrada = this.rutaMostrada === ruta ? null : ruta;
-    this.rutaCompartida = null;
   }
 
-  async compartirRuta(ruta: Ruta): Promise<void> {
-    if (this.rutaCompartida === ruta) {
-      this.rutaCompartida = null;
-      this.qrUrl = '';
-      return;
+  generarQR(id: string): void {
+    const ruta = this.rutas.find(r => r.id === id);
+    if (ruta) {
+      ruta.mostrarQR = !ruta.mostrarQR;
     }
+  }
 
-    const url = `${window.location.origin}/scout-rutas/navegar/${ruta.id}`;
-    try {
-      this.qrUrl = await QRCode.toDataURL(url);
-      this.rutaCompartida = ruta;
-      this.rutaMostrada = null;
-    } catch (err) {
-      console.error('Error al generar QR:', err);
-    }
+  getRutaURL(id: string): string {
+    return `${window.location.origin}/scout-rutas/navegar/${id}`;
   }
 }
