@@ -3,7 +3,8 @@ import { FirebaseTestComponent } from './firebase-test.component';
 import { provideFirestore } from '@angular/fire/firestore';
 import { getFirestore, connectFirestoreEmulator } from 'firebase/firestore';
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { environment } from '../../environments/environment';
+import { environment } from '../../../environments/environment';
+
 
 // Simple Firestore emulator config for unit test; uses memory to avoid network
 
