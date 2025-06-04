@@ -23,6 +23,11 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./pages/mapa/mapa.component').then(m => m.MapaComponent)
   },
+  {
+    path: 'firebase',
+    loadComponent: () =>
+      import('./pages/firebase-test/firebase-test.component').then(m => m.FirebaseTestComponent)
+  },
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'login' }
 ];

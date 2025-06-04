@@ -1,0 +1,26 @@
+<div class="firebase-test-container">
+  <h2>Prueba de Firebase</h2>
+
+  <form [formGroup]="form" (ngSubmit)="crear()">
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Nombre</mat-label>
+      <input matInput formControlName="nombre" />
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Crear documento</button>
+  </form>
+
+  <h3>Documentos</h3>
+  <ul>
+    <li *ngFor="let item of items$ | async">
+      {{ item.nombre }}
+      <button mat-button color="accent" (click)="leer(item.id)">Leer</button>
+      <button mat-button color="primary" (click)="actualizar(item)">Actualizar</button>
+      <button mat-button color="warn" (click)="eliminar(item.id)">Eliminar</button>
+    </li>
+  </ul>
+
+  <h3>Registro de acciones</h3>
+  <ul>
+    <li *ngFor="let log of logs">{{ log }}</li>
+  </ul>
+</div>
