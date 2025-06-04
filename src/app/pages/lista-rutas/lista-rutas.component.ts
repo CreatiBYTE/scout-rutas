@@ -46,7 +46,13 @@ export class ListaRutasComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.rutasSub = this.rutasService.obtenerRutas().subscribe({
       next: (rutas) => {
-        this.rutas = rutas.map(r => ({ ...r, mostrarQR: false, mostrarDetalle: false }));
+        this.rutas = rutas
+          .sort((a, b) => {
+            const fechaA = new Date(a.fechaCreacion).getTime();
+            const fechaB = new Date(b.fechaCreacion).getTime();
+            return fechaB - fechaA;
+          })
+          .map(r => ({ ...r, mostrarQR: false, mostrarDetalle: false }));
       },
       error: (err) => {
         console.error('Error al obtener rutas:', err);

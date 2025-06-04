@@ -1,5 +1,6 @@
 <div class="rutas-container">
   <h2>Rutas guardadas</h2>
+  <button mat-raised-button color="primary" (click)="crearRuta()">Nueva ruta</button>
 
   <div *ngIf="rutas.length === 0" class="mensaje-vacio">
     Aún no has creado rutas. Ve a "Crear Ruta" para empezar una aventura.

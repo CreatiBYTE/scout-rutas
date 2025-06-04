@@ -16,14 +16,14 @@
   <div *ngIf="eventoEstado === 'finalizado'" class="contador">
     EL evento ha concluido
   </div>
-  <div *ngIf="eventoEstado === 'en-curso'" class="instrucciones">
+  <div *ngIf="eventoEstado === 'en-curso' && !instalada" class="instrucciones">
     <ng-container [ngSwitch]="navegador">
       <p *ngSwitchCase="'chrome'">Agrega esta página a tu inicio desde el menú ⋮ y elige "Agregar a pantalla principal".</p>
       <p *ngSwitchCase="'safari'">Presiona el botón "Compartir" y selecciona "Agregar a inicio".</p>
     </ng-container>
   </div>
 
-  <google-map height="100vh" width="100%" [center]="mapaCentro" [zoom]="zoom">
+  <google-map *ngIf="instalada" height="100vh" width="100%" [center]="mapaCentro" [zoom]="zoom">
     <map-polyline [path]="polylinePath" [options]="{ strokeColor: '#1976d2', strokeWeight: 4 }"></map-polyline>
   </google-map>
 </div>
