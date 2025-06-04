@@ -63,14 +63,12 @@ export class ListaRutasComponent implements OnInit {
     this.rutaCompartida = null;
 
     setTimeout(() => {
-      if (this.miniMapa && this.rutaMostrada?.puntos?.length > 0) {
+      if (this.miniMapa && this.rutaMostrada?.puntos?.length) {
         const bounds = new google.maps.LatLngBounds();
-        if (this.rutaMostrada.puntos) {
-          this.rutaMostrada.puntos.forEach(p => {
-            bounds.extend(new google.maps.LatLng(p.lat, p.lng));
-          });
-        }
-        this.miniMapa.fitBounds(bounds);
+        this.rutaMostrada.puntos.forEach(p => {
+          bounds.extend(new google.maps.LatLng(p.lat, p.lng));
+        });
+        this.miniMapa!.fitBounds(bounds);
       }
     }, 300);
   }
