@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CrearRutaComponent } from './crear-ruta.component';
+import { RutasService } from '../../services/rutas.service';
+import { of } from 'rxjs';
 
 describe('CrearRutaComponent', () => {
   let component: CrearRutaComponent;
@@ -8,7 +10,10 @@ describe('CrearRutaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CrearRutaComponent]
+      imports: [CrearRutaComponent],
+      providers: [
+        { provide: RutasService, useValue: { agregarRuta: () => Promise.resolve() } }
+      ]
     })
     .compileComponents();
 

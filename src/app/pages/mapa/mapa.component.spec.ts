@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MapaComponent } from './mapa.component';
+import { RutasService } from '../../services/rutas.service';
+import { of } from 'rxjs';
 
 describe('MapaComponent', () => {
   let component: MapaComponent;
@@ -8,7 +10,10 @@ describe('MapaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MapaComponent]
+      imports: [MapaComponent],
+      providers: [
+        { provide: RutasService, useValue: { agregarRuta: () => Promise.resolve() } }
+      ]
     })
     .compileComponents();
 

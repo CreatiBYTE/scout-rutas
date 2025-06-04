@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RutasService } from '../../services/rutas.service';
 
 @Component({
   selector: 'app-mapa',
@@ -37,7 +38,7 @@ export class MapaComponent implements OnInit {
   polylinePath: google.maps.LatLngLiteral[] = [];
 
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private rutasService: RutasService) {}
 
   ngOnInit(): void {
     const datosRuta = localStorage.getItem('rutaTemporal');
@@ -95,8 +96,10 @@ export class MapaComponent implements OnInit {
       distanciaTotal: this.distanciaTotal
     };
     localStorage.setItem('rutaFinal', JSON.stringify(rutaGuardada));
-    alert('Ruta guardada correctamente.');
-    this.router.navigate(['/rutas']);
+    this.rutasService.agregarRuta(rutaGuardada).then(() => {
+      alert('Ruta guardada correctamente.');
+      this.router.navigate(['/rutas']);
+    }).catch(err => console.error('Error al guardar ruta', err));
   }
 
   private calcularDistanciaTotal(): void {
