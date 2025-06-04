@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 interface Ruta {
   id: string;
@@ -21,7 +21,7 @@ interface Ruta {
     MatListModule,
     MatButtonModule,
     MatIconModule,
-    QRCodeModule
+    QRCodeComponent
   ],
   templateUrl: './lista-rutas.component.html',
   styleUrls: ['./lista-rutas.component.scss']
