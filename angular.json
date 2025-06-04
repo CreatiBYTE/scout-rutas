@@ -13,7 +13,7 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
-      "architect": {
+      "targets": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
@@ -77,11 +77,9 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
-          "configurations": {
-            "production": {},
-            "development": {}
-          },
-          "defaultConfiguration": "development"
+          "options": {
+            "buildTarget": "scout-rutas:build"
+          }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
@@ -122,5 +120,6 @@
   },
   "cli": {
     "analytics": false
-  }
+  },
+  "defaultProject": "scout-rutas"
 }

@@ -2,51 +2,62 @@
   <h2>Crear Nueva Ruta</h2>
 
   <form [formGroup]="form" (ngSubmit)="continuar()">
-
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Nombre de la ruta</mat-label>
-      <input matInput formControlName="nombre">
+      <input matInput formControlName="nombre" />
     </mat-form-field>
 
     <div class="fechas">
       <mat-form-field appearance="outline">
         <mat-label>Fecha inicio</mat-label>
-        <input matInput type="date" formControlName="fechaInicio">
+        <input matInput type="date" formControlName="fechaInicio" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Hora inicio</mat-label>
-        <input matInput type="time" formControlName="horaInicio">
+        <input matInput type="time" formControlName="horaInicio" />
       </mat-form-field>
     </div>
 
     <div class="fechas">
       <mat-form-field appearance="outline">
         <mat-label>Fecha fin</mat-label>
-        <input matInput type="date" formControlName="fechaFin">
+        <input matInput type="date" formControlName="fechaFin" />
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Hora fin</mat-label>
-        <input matInput type="time" formControlName="horaFin">
+        <input matInput type="time" formControlName="horaFin" />
       </mat-form-field>
     </div>
 
     <mat-checkbox formControlName="crearEquipos">Crear equipos</mat-checkbox>
 
     <div *ngIf="form.get('crearEquipos')?.value">
-      <div *ngFor="let equipo of equipos.controls; let i = index" class="equipo-item">
+      <div
+        *ngFor="let equipo of equipos.controls; let i = index"
+        class="equipo-item"
+      >
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Nombre del equipo {{ i + 1 }}</mat-label>
-          <input matInput [formControl]="equipo">
+          <input matInput [formControl]="equipo" />
         </mat-form-field>
-        <button mat-icon-button color="warn" type="button" (click)="eliminarEquipo(i)">
+        <button
+          mat-icon-button
+          color="warn"
+          type="button"
+          (click)="eliminarEquipo(i)"
+        >
           <mat-icon>delete</mat-icon>
         </button>
       </div>
-      <button mat-button color="primary" type="button" (click)="agregarEquipo()">+ Agregar equipo</button>
+      <button mat-button color="primary" type="button" (click)="agregarEquipo()">
+        + Agregar equipo
+      </button>
     </div>
 
-    <button mat-raised-button color="primary" class="full-width" type="submit">Continuar</button>
+    <button mat-raised-button color="primary" class="full-width" type="submit">
+      Continuar
+    </button>
   </form>
 </div>

@@ -1,37 +1,77 @@
-<div class="busqueda">
-  <mat-form-field appearance="outline" class="full-width">
-    <mat-label>Buscar dirección</mat-label>
-    <input matInput [(ngModel)]="direccion" />
-  </mat-form-field>
-  <button mat-raised-button color="primary" (click)="buscarDireccion()">Mostrar</button>
-</div>
+<div class="mapa-page">
+  <div class="datos-ruta">
+    <h2>{{ ruta?.nombre || 'Nueva Ruta' }}</h2>
+    <p class="muted">Inicio:</p>
+    <p>{{ ruta?.fechaInicio }} {{ ruta?.horaInicio }}</p>
 
-<div class="contenedor">
-  <google-map
-    height="500px"
-    width="100%"
-    [center]="mapaCentro"
-    [zoom]="zoom"
-    (mapClick)="agregarPunto($event)"
-  ></google-map>
+    <p class="muted">Fin:</p>
+    <p>{{ ruta?.fechaFin }} {{ ruta?.horaFin }}</p>
 
-  <map-polyline [path]="polylinePath" [options]="{ strokeColor: '#FF0000', strokeWeight: 4 }"></map-polyline>
+    <p class="muted">Distancia total:</p>
+    <p>{{ distanciaTotal.toFixed(2) }} km</p>
 
-
-  <div class="lista-puntos">
-    <ng-container *ngIf="puntos.length === 0">
-      <button mat-stroked-button color="accent" (click)="modoCreacion = true">
-        Crear Ruta
+    <ng-container *ngIf="ruta?.crearEquipos">
+      <p class="muted">Equipos:</p>
+      <ul>
+        <li *ngFor="let equipo of ruta.equipos">{{ equipo }}</li>
+      </ul>
+      <button mat-stroked-button color="primary" (click)="mostrarNombres = !mostrarNombres">
+        {{ mostrarNombres ? 'Ocultar nombres' : 'Mostrar nombres' }}
       </button>
     </ng-container>
 
-    <ng-container *ngIf="puntos.length > 0">
-      <h3>Puntos</h3>
-      <div *ngFor="let punto of puntos; let i = index">
-        <strong>{{ punto.nombre }}</strong>
-        <p>Lat: {{ punto.lat.toFixed(5) }}, Lng: {{ punto.lng.toFixed(5) }}</p>
+    <div *ngIf="!puntos.length && !modoCreacion" class="mensaje-inicial">
+      <p>Tu ruta no tiene puntos. Haz clic en <strong>"Crear puntos"</strong> para comenzar.</p>
+      <button mat-raised-button color="accent" (click)="activarModoCreacion()">
+        Crear puntos
+      </button>
+    </div>
+
+    <div *ngIf="modoCreacion && !puntos.length" class="mensaje-creacion">
+      <p>Haz clic sobre el mapa para añadir cada punto de la ruta...</p>
+    </div>
+
+    <div *ngIf="puntos.length" class="lista-puntos">
+      <h3>Puntos de la ruta</h3>
+      <div *ngFor="let punto of puntos; let i = index" class="punto-item">
+        <mat-form-field appearance="outline">
+          <input matInput [(ngModel)]="punto.nombre" placeholder="Nombre del punto">
+        </mat-form-field>
+        <button mat-icon-button color="warn" (click)="eliminarPunto(i)">
+          <mat-icon>delete</mat-icon>
+        </button>
       </div>
-      <button mat-stroked-button (click)="guardarRuta()">Guardar ruta</button>
-    </ng-container>
+      <button mat-raised-button color="primary" (click)="guardarRuta()">Mi ruta está lista, guardar</button>
+    </div>
+  </div>
+
+  <div class="contenedor-mapa">
+    <div class="buscador-direccion">
+      <mat-form-field appearance="fill">
+        <input matInput [(ngModel)]="direccion" placeholder="Centrar mapa en...">
+      </mat-form-field>
+      <button mat-stroked-button color="primary" (click)="buscarDireccion()">Mostrar</button>
+    </div>
+
+    <google-map height="500px" width="100%" [center]="mapaCentro" [zoom]="zoom"
+  [options]="{ disableDefaultUI: false, streetViewControl: false }"
+  (mapClick)="modoCreacion ? agregarPunto($event) : null">
+
+  <!-- Dibuja la línea de la ruta -->
+  <map-polyline [path]="polylinePath" [options]="{
+    strokeColor: '#2196f3',
+    strokeOpacity: 0.8,
+    strokeWeight: 4
+  }">
+  </map-polyline>
+
+  <!-- Agrega marcadores con nombres si mostrarNombres está activo -->
+  <map-marker *ngFor="let punto of puntos"
+              [position]="{ lat: punto.lat, lng: punto.lng }"
+              [label]="mostrarNombres ? punto.nombre : ''"
+              [title]="punto.nombre">
+  </map-marker>
+</google-map>
+
   </div>
 </div>

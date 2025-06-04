@@ -1,16 +1,27 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormArray, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  FormArray,
+  FormControl,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { CommonModule } from '@angular/common';
+
+// Angular Material
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { MatButtonModule } from '@angular/material/button';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-crear-ruta',
   standalone: true,
+  selector: 'app-crear-ruta',
+  templateUrl: './crear-ruta.component.html',
+  styleUrls: ['./crear-ruta.component.scss'],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -18,48 +29,36 @@ import { MatIconModule } from '@angular/material/icon';
     MatInputModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
   ],
-  templateUrl: './crear-ruta.component.html',
-  styleUrls: ['./crear-ruta.component.scss']
 })
 export class CrearRutaComponent {
   form: FormGroup;
+  get equipos(): FormArray<FormControl<string>> {
+    return this.form.get('equipos') as FormArray<FormControl<string>>;
+  }
 
   constructor(private fb: FormBuilder, private router: Router) {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       fechaInicio: ['', Validators.required],
       horaInicio: ['', Validators.required],
-      fechaFin: [''],
-      horaFin: [''],
+      fechaFin: ['', Validators.required],
+      horaFin: ['', Validators.required],
       crearEquipos: [false],
-      equipos: this.fb.array([])
-    });
-
-    this.form.get('crearEquipos')?.valueChanges.subscribe(val => {
-      const equipos = this.form.get('equipos') as FormArray;
-      if (val && equipos.length === 0) {
-        equipos.push(this.fb.control('', Validators.required));
-      } else if (!val) {
-        equipos.clear();
-      }
+      equipos: this.fb.array<FormControl<string>>([]),
     });
   }
 
- get equipos(): FormArray<FormControl> {
-  return this.form.get('equipos') as FormArray<FormControl>;
-}
-
-  agregarEquipo() {
-    this.equipos.push(this.fb.control('', Validators.required));
+  agregarEquipo(): void {
+    this.equipos.push(new FormControl<string>('', { nonNullable: true, validators: Validators.required }));
   }
 
-  eliminarEquipo(i: number) {
-    this.equipos.removeAt(i);
+  eliminarEquipo(index: number): void {
+    this.equipos.removeAt(index);
   }
 
-  continuar() {
+  continuar(): void {
     if (this.form.valid) {
       const datosRuta = this.form.value;
       localStorage.setItem('rutaTemporal', JSON.stringify(datosRuta));

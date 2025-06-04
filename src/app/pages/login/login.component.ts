@@ -36,7 +36,8 @@ export class LoginComponent {
     const { username, password } = this.form.value;
     if (username === 'admin' && password === 'soyscout') {
        const routeId = '1234'; // esto puede cambiar luego según el usuario
-       this.router.navigate(['/navegar', routeId]);
+       this.router.navigate(['/rutas']);
+       //this.router.navigate(['/navegar', routeId]);
     } else {
       this.errorMessage = 'Usuario o contraseña incorrectos';
     }

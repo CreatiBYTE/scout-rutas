@@ -1,0 +1,45 @@
+.container {
+  padding: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+
+  h1 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-weight: 600;
+    color: #2c3e50;
+  }
+
+  .ruta-item {
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: #f0f0f0;
+    }
+
+    h4 {
+      font-weight: 500;
+    }
+
+    p {
+      font-size: 0.875rem;
+      color: #666;
+    }
+  }
+
+  .sin-rutas {
+    text-align: center;
+    margin-top: 3rem;
+
+    p {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+      color: #555;
+    }
+
+    button {
+      font-weight: 500;
+    }
+  }
+}

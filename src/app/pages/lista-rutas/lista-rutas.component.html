@@ -1,0 +1,35 @@
+<div class="rutas-container">
+  <h2>Rutas guardadas</h2>
+
+  <div *ngIf="rutas.length === 0" class="mensaje-vacio">
+    Aún no has creado rutas. Ve a "Crear Ruta" para empezar una aventura.
+  </div>
+
+  <div class="ruta-card" *ngFor="let ruta of rutas">
+    <div class="ruta-header">
+      <h3>{{ ruta.nombre }}</h3>
+      <p class="texto-muted">{{ ruta['fechaInicio'] }} {{ ruta['horaInicio'] }} → {{ ruta['fechaFin'] }} {{ ruta['horaFin'] }}</p>
+      <p *ngIf="ruta['crearEquipos']" class="texto-muted">Equipos: {{ ruta['equipos'].join(', ') }}</p>
+      <p class="texto-muted">Distancia estimada: {{ ruta['distancia'] }} km</p>
+    </div>
+
+    <div class="ruta-actions">
+      <button mat-icon-button (click)="verRuta(ruta)">
+        <mat-icon>visibility</mat-icon>
+      </button>
+      <button mat-icon-button (click)="generarQR(ruta.id)" matTooltip="Compartir">
+  <mat-icon>qr_code</mat-icon>
+</button>
+    </div>
+
+    <div class="ruta-detalle" *ngIf="ruta['mostrarDetalle']">
+      <p class="texto-muted">Esta ruta tiene {{ ruta['puntos'].length }} puntos.</p>
+      <!-- Aquí puedes mostrar un mini-mapa o coordenadas si deseas -->
+    </div>
+
+    <div *ngIf="ruta['mostrarQR']" class="qr-contenedor">
+      <qrcode [qrdata]="getRutaURL(ruta.id)" [width]="160" [errorCorrectionLevel]="'M'"></qrcode>
+      <p class="texto-muted">Escanéame para navegar en celular</p>
+    </div>
+  </div>
+</div>
