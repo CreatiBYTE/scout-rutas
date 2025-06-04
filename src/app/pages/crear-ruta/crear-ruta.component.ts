@@ -16,6 +16,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { RutasService } from '../../services/rutas.service';
+import { Ruta } from '../../models/ruta';
 
 @Component({
   standalone: true,
@@ -38,7 +40,11 @@ export class CrearRutaComponent {
     return this.form.get('equipos') as FormArray<FormControl<string>>;
   }
 
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private rutasService: RutasService
+  ) {
     this.form = this.fb.group({
       nombre: ['', Validators.required],
       fechaInicio: ['', Validators.required],
@@ -62,7 +68,12 @@ export class CrearRutaComponent {
     if (this.form.valid) {
       const datosRuta = this.form.value;
       localStorage.setItem('rutaTemporal', JSON.stringify(datosRuta));
-      this.router.navigate(['/mapa']);
+      this.rutasService.agregarRuta({
+        ...datosRuta,
+        puntos: []
+      } as Ruta).then(() => {
+        this.router.navigate(['/mapa']);
+      });
     }
   }
 }

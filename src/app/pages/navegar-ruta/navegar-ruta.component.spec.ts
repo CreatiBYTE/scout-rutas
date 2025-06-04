@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NavegarRutaComponent } from './navegar-ruta.component';
+import { RutasService } from '../../services/rutas.service';
+import { of } from 'rxjs';
 
 describe('NavegarRutaComponent', () => {
   let component: NavegarRutaComponent;
@@ -8,7 +10,10 @@ describe('NavegarRutaComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [NavegarRutaComponent]
+      imports: [NavegarRutaComponent],
+      providers: [
+        { provide: RutasService, useValue: { obtenerRutaPorId: () => of(null) } }
+      ]
     })
     .compileComponents();
 

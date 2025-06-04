@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { collection, collectionData, doc, setDoc, Firestore } from '@angular/fire/firestore';
+import { collection, collectionData, doc, setDoc, docData, Firestore } from '@angular/fire/firestore';
 import { addDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Ruta } from '../models/ruta';
@@ -17,6 +17,11 @@ export class RutasService {
 
   obtenerRutas(): Observable<Ruta[]> {
     return collectionData(this.rutasRef, { idField: 'id' }) as Observable<Ruta[]>;
+  }
+
+  obtenerRutaPorId(id: string): Observable<Ruta | undefined> {
+    const rutaRef = doc(this.firestore, `rutas/${id}`);
+    return docData(rutaRef, { idField: 'id' }) as Observable<Ruta | undefined>;
   }
 
   agregarRuta(ruta: Ruta): Promise<void> {
