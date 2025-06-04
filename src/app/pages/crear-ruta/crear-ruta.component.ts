@@ -17,7 +17,6 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RutasService } from '../../services/rutas.service';
-import { Ruta } from '../../models/ruta';
 
 @Component({
   standalone: true,
@@ -68,12 +67,7 @@ export class CrearRutaComponent {
     if (this.form.valid) {
       const datosRuta = this.form.value;
       localStorage.setItem('rutaTemporal', JSON.stringify(datosRuta));
-      this.rutasService.agregarRuta({
-        ...datosRuta,
-        puntos: []
-      } as Ruta).then(() => {
-        this.router.navigate(['/mapa']);
-      });
+      this.router.navigate(['/mapa']);
     }
   }
 }
