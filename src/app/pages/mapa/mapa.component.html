@@ -1,0 +1,37 @@
+<div class="busqueda">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Buscar dirección</mat-label>
+    <input matInput [(ngModel)]="direccion" />
+  </mat-form-field>
+  <button mat-raised-button color="primary" (click)="buscarDireccion()">Mostrar</button>
+</div>
+
+<div class="contenedor">
+  <google-map
+    height="500px"
+    width="100%"
+    [center]="mapaCentro"
+    [zoom]="zoom"
+    (mapClick)="agregarPunto($event)"
+  ></google-map>
+
+  <map-polyline [path]="polylinePath" [options]="{ strokeColor: '#FF0000', strokeWeight: 4 }"></map-polyline>
+
+
+  <div class="lista-puntos">
+    <ng-container *ngIf="puntos.length === 0">
+      <button mat-stroked-button color="accent" (click)="modoCreacion = true">
+        Crear Ruta
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf="puntos.length > 0">
+      <h3>Puntos</h3>
+      <div *ngFor="let punto of puntos; let i = index">
+        <strong>{{ punto.nombre }}</strong>
+        <p>Lat: {{ punto.lat.toFixed(5) }}, Lng: {{ punto.lng.toFixed(5) }}</p>
+      </div>
+      <button mat-stroked-button (click)="guardarRuta()">Guardar ruta</button>
+    </ng-container>
+  </div>
+</div>
