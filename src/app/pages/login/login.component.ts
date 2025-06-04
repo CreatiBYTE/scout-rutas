@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { RutasService } from '../../services/rutas.service';
@@ -7,6 +7,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatError } from '@angular/material/form-field';
+import { Subscription } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -22,9 +23,10 @@ import { MatError } from '@angular/material/form-field';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnDestroy {
   form: FormGroup;
   errorMessage: string = '';
+  private rutasSub?: Subscription;
 
   constructor(private fb: FormBuilder, private router: Router, private rutasService: RutasService) {
     this.form = this.fb.group({
@@ -36,7 +38,8 @@ export class LoginComponent {
   login() {
     const { username, password } = this.form.value;
     if (username === 'admin' && password === 'soyscout') {
-      this.rutasService.obtenerRutas().subscribe({
+      this.rutasSub?.unsubscribe();
+      this.rutasSub = this.rutasService.obtenerRutas().subscribe({
         next: rutas => {
           if (rutas.length === 0) {
             this.router.navigate(['/crear']);
@@ -52,5 +55,9 @@ export class LoginComponent {
     } else {
       this.errorMessage = 'Usuario o contraseña incorrectos';
     }
+  }
+
+  ngOnDestroy(): void {
+    this.rutasSub?.unsubscribe();
   }
 }
